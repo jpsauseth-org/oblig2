@@ -1,3 +1,4 @@
+#kopiert fra app/variables
 variable "kortnavn" {
   description = "Kortnavnet ditt. Settes i config/felles.tfvars."
   type        = string
@@ -38,15 +39,6 @@ variable "state_container_name" {
   type        = string
 }
 
-variable "tjenester" {
-  description = "Tjenestene og kjøremiljøet deres: \"vm\" eller \"webapp\"."
-  type        = map(string)
-
-  validation {
-    condition     = alltrue([for r in values(var.tjenester) : contains(["vm", "webapp"], r)])
-    error_message = "Kjøremiljøet må være vm eller webapp."
-  }
-}
 
 variable "vm_size" {
   description = "VM-størrelsen for tjenester med runtime vm."
@@ -54,13 +46,43 @@ variable "vm_size" {
   default     = "Standard_B2als_v2"
 }
 
-variable "ssh_public_key" {
-  description = "Offentlig SSH-nøkkel til VM-ene. Ikke hemmelig."
-  type        = string
-}
-
 variable "webapp_sku" {
   description = "SKU for App Service-planene til tjenester med runtime webapp."
   type        = string
   default     = "B1"
+}
+
+variable "tjeneste" {
+  description = "navnet på tjenesten, vil bli brukt i alle ressursnavn"
+  type        = string
+  validation {
+    condition     = can(regex("^[a-z]{2,8}$", var.tjeneste))
+    error_message = "tjenestenavn må være 2-8 små bokstaver, så det ikke totalen med storage_name blir over 24 tegn"
+  }
+}
+
+variable "runtime" {
+  description = "Hva tjenesten kjører på (kan være vm eller webapp)"
+  type        = string
+  validation {
+    condition     = contains(["vm", "webapp"], var.runtime)
+    error_message = "må inneholde vm/webapp og runtime"
+  }
+}
+
+variable "prefix" {
+  description = "adresseområdet til subnettet"
+  type        = string
+}
+
+variable "allow_http_from" {
+  description = "hvem som får nå tjenesten fra http (port 80)"
+  type        = string
+  default     = "Internet"
+}
+
+variable "ssh_public_key" {
+  description = "offentlig nøkkel"
+  type        = string
+  default     = null
 }
