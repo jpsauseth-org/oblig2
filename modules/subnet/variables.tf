@@ -39,3 +39,13 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "ekstra_regler" {
+  description = "Ekstra innkommende Allow-regler på NSG-en, utover allow-http. Nøkkelen blir en del av regelnavnet."
+  type = map(object({
+    prioritet = number
+    port      = string
+    kilde     = string
+  }))
+  default = {}
+}
