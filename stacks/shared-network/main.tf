@@ -22,7 +22,3 @@ module "vnet" {
   tags                = local.tags
 }
 
-#Bare for å bygge import-ID-ene uten abonnements-ID (K5)
-data "azurerm_resource_group" "eksisterende" {
-  name = "rg-${var.kortnavn}-oblig2-${var.miljo}"
-}
