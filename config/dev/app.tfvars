@@ -1,8 +1,8 @@
 #tom med vilje, ssh nøkkel ligger nå i service-ordre
 
 #tjenester = {
- # ordre = "vm"
- # meny  = "webapp"
+# ordre = "vm"
+# meny  = "webapp"
 #}
 
 # En offentlig nøkkel uten tilhørende privat nøkkel: ingen kan logge inn på
