@@ -1,3 +1,4 @@
+#hva som deles på nettverket (rg og vnet)
 locals {
   tags = {
     eier  = var.kortnavn
