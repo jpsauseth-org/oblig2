@@ -13,7 +13,7 @@ name: CD dev
 run-name: dev ← ${{ github.sha }}
 
 on:
-  push:
+  #push:
     branches: [main]
     paths:
       - "stacks/**"
